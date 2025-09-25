@@ -1,0 +1,56 @@
+---
+import Image from "./Image.astro";
+const profile = "../../public/profile.jpg";
+---
+
+<div class="profile-card">
+    <Image src={profile} alt="프로필" />
+    <div class="text-container">
+        <span class="main">
+            장한울
+        </span>
+        <span class="sub">
+            선린인고 120th<br />
+            AnA 16th
+        </span>
+    </div>
+</div>
+
+<style>
+    .profile-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background: linear-gradient(to right, #f8f9fa, #e9ecef);
+        border-radius: 1.5em;
+        width: 16rem;
+        margin: 20px auto;
+        padding: 1rem;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: 1px solid #dee2e6;
+    }
+
+    .profile-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    }
+
+    .text-container {
+        margin-left: 1rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .main {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #212529;
+    }
+
+    .sub {
+        font-size: 0.9rem;
+        color: #495057;
+        line-height: 1.4;
+    }
+</style>

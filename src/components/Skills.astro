@@ -1,0 +1,45 @@
+---
+import Image from "./Image.astro"
+const { skill, color, logo, href } = Astro.props;
+---
+
+<a href={href} target="_blank" class="skill-card">
+    <Image src={logo} alt={skill} />
+    <span class="skill-text">{skill}</span>
+</a>
+
+<style define:vars={{ color }}>
+    .skill-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        background-color: var(--white);
+        border-radius: 1rem;
+        padding: 1.5rem;
+        text-decoration: none;
+        color: var(--text-color);
+        border: 1px solid var(--border-color);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .skill-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    }
+
+    .skill-text {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--color);
+    }
+
+    /* Overriding Image.astro styles */
+    .skill-card :global(.image) {
+        width: 4rem;
+        height: 4rem;
+        border: none;
+        background-color: transparent;
+    }
+</style>

@@ -1,0 +1,174 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from "../components/Navigation.astro";
+import Skill from "../components/Skills.astro"
+import Profile from "../components/Profile.astro";
+
+const happy = true;
+const colors = {
+    Go: {
+        color: "#00ADD8",
+        logoPath: "../../public/logos/Go.png",
+        href: "https://go.dev/"
+    },
+    Fiber: {
+        color: "#0094F4",
+        logoPath: "../../public/logos/Fiber.png",
+        href: "https://gofiber.io/"
+    },
+    Astro: {
+        color: "#FF5D01",
+        logoPath: "../../public/logos/Astro.png",
+        href: "https://astro.build/"
+    },
+    Django: {
+        color: "#092E20",
+        logoPath: "../../public/logos/Django.png",
+        href: "https://www.djangoproject.com/"
+    },
+    DRF: {
+        color: "#A30000",
+        logoPath: "../../public/logos/DRF.png",
+        href: "https://www.django-rest-framework.org/"
+    },
+    FastAPI: {
+        color: "#009688",
+        logoPath: "../../public/logos/FastAPI.png",
+        href: "https://fastapi.tiangolo.com/"
+    },
+    NestJS: {
+        color: "#E0234E",
+        logoPath: "../../public/logos/NestJS.svg",
+        href: "https://nestjs.com/"
+    },
+    SpringBoot: {
+        color: "#6DB33F",
+        logoPath: "../../public/logos/SpringBoot.png",
+        href: "https://spring.io/projects/spring-boot"
+    },
+    PostgreSQL: {
+        color: "#336791",
+        logoPath: "../../public/logos/PostgreSQL.svg",
+        href: "https://www.postgresql.org/"
+    },
+    Qdrant: {
+        color: "#DC244C",
+        logoPath: "../../public/logos/Qdrant.png",
+        href: "https://qdrant.tech/"
+    },
+    Git: {
+        color: "#F05032",
+        logoPath: "../../public/logos/Git.png",
+        href: "https://git-scm.com/"
+    },
+    Nginx: {
+        color: "#019639",
+        logoPath: "../../public/logos/Nginx.png",
+        href: "https://nginx.org"
+    },
+    Photoshop: {
+        color: "#001E36",
+        logoPath: "../../public/logos/Photoshop.png",
+        href: "https://www.adobe.com/kr/products/photoshop.html"
+    }
+} as const;
+const skills = Object.keys(colors) as (keyof typeof colors)[];
+---
+
+<Layout>
+    <Navigation />
+    <div class="page-container">
+        <section class="about-section">
+            <div class="about-content">
+                <h1 class="title">About Me</h1>
+                <p class="intro">
+                    나는야 슈퍼 짱짱맨
+                </p>
+                {happy && (
+                    <div class="message-box">
+                        <p>Astro 개꿀잼</p>
+                    </div>
+                )}
+            </div>
+            <div class="profile-wrapper">
+                <Profile />
+            </div>
+        </section>
+
+        <section class="skills-section">
+            <h2 class="subtitle">My Skills</h2>
+            <div class="skills-grid">
+                {skills.map(skill => <Skill skill={skill} color={colors[skill].color} logo={colors[skill].logoPath} href={colors[skill].href} />)}
+            </div>
+        </section>
+    </div>
+</Layout>
+
+<style>
+    .page-container {
+        display: flex;
+        flex-direction: column;
+        gap: 4rem;
+    }
+
+    .about-section {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    @media (min-width: 768px) {
+        .about-section {
+            grid-template-columns: 2fr 1fr;
+        }
+    }
+
+    .about-content {
+        text-align: left;
+    }
+
+    .title {
+        margin-bottom: 1.5rem;
+    }
+
+    .intro {
+        font-size: 1.1rem;
+        color: var(--secondary-color);
+        max-width: 600px;
+    }
+
+    .message-box {
+        background-color: var(--light-gray);
+        border-left: 4px solid var(--primary-color);
+        padding: 1rem 1.5rem;
+        margin-top: 2rem;
+        border-radius: 0.5rem;
+    }
+
+    .message-box p {
+        margin: 0;
+        font-weight: 500;
+        color: var(--heading-color);
+    }
+
+    .profile-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .skills-section {
+        text-align: center;
+    }
+
+    .subtitle {
+        margin-bottom: 2rem;
+    }
+
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1.5rem;
+    }
+</style>
