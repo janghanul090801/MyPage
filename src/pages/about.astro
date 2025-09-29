@@ -11,6 +11,31 @@ const colors = {
         logoPath: "/logos/Go.png",
         href: "https://go.dev/"
     },
+    Python: {
+        color: "#3572A5",
+        logoPath: "/logos/Python.png",
+        href: "https://www.python.org/"
+    },
+    C: {
+        color: "#00599c",
+        logoPath: "/logos/C.png",
+        href: "https://webstore.iec.ch/en/publication/102886"
+    },
+    Java: {
+        color: "#B07219",
+        logoPath: "/logos/Java.png",
+        href: "https://www.java.com/"
+    },
+    TypeScript: {
+        color: "#2B7489",
+        logoPath: "/logos/TypeScript.png",
+        href: "https://www.typescriptlang.org/"
+    },
+    Arduino: {
+        color: "#008184",
+        logoPath: "/logos/Arduino.svg",
+        href: "https://www.arduino.cc/"
+    },
     Fiber: {
         color: "#0094F4",
         logoPath: "/logos/Fiber.png",
@@ -76,40 +101,33 @@ const skills = Object.keys(colors) as (keyof typeof colors)[];
 ---
 
 <Layout>
-    <Navigation />
-    <div class="page-container">
-        <section class="about-section">
-            <div class="about-content">
-                <h1 class="title">About Me</h1>
-                <p class="intro">
-                    나는야 슈퍼 짱짱맨
-                </p>
-                {happy && (
-                    <div class="message-box">
-                        <p>Astro 개꿀잼</p>
-                    </div>
-                )}
-            </div>
-            <div class="profile-wrapper">
-                <Profile />
-            </div>
-        </section>
+    <section class="about-section">
+        <div class="about-content">
+            <h1 class="title">About Me</h1>
+            <p class="intro">
+                나는야 슈퍼 짱짱맨
+            </p>
+            {happy && (
+                <div class="message-box">
+                    <p>Astro 개꿀잼</p>
+                </div>
+            )}
+        </div>
+        <div class="profile-wrapper">
+            <Profile />
+        </div>
+    </section>
 
-        <section class="skills-section">
-            <h2 class="subtitle">My Skills</h2>
-            <div class="skills-grid">
-                {skills.map(skill => <Skill skill={skill} color={colors[skill].color} logo={colors[skill].logoPath} href={colors[skill].href} />)}
-            </div>
-        </section>
-    </div>
+    <section class="skills-section">
+        <h2 class="subtitle">My Skills</h2>
+        <div class="skills-grid">
+            {skills.map(skill => <Skill skill={skill} color={colors[skill].color} logo={colors[skill].logoPath} href={colors[skill].href} />)}
+        </div>
+    </section>
 </Layout>
 
 <style>
-    .page-container {
-        display: flex;
-        flex-direction: column;
-        gap: 4rem;
-    }
+    
 
     .about-section {
         display: grid;
@@ -160,6 +178,7 @@ const skills = Object.keys(colors) as (keyof typeof colors)[];
 
     .skills-section {
         text-align: center;
+        margin: 0 auto;
     }
 
     .subtitle {
@@ -168,7 +187,7 @@ const skills = Object.keys(colors) as (keyof typeof colors)[];
 
     .skills-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-template-columns: repeat(4, 1fr);
         gap: 1.5rem;
     }
 </style>

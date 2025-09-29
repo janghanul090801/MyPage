@@ -15,6 +15,7 @@ html {
     font-family: var(--font-sans);
     color: var(--text-color);
     scroll-behavior: smooth;
+    overflow-y: scroll;
 }
 
 body {
@@ -52,13 +53,13 @@ p {
 }
 
 a {
-    color: var(--primary-color);
+    color: #333;
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 a:hover {
-    color: #0056b3;
+    color: #333;
 }
 
 img {
