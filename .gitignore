@@ -23,7 +23,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-prisma/
+prisma/dev.db
 
 # Local Netlify folder
 .netlify
