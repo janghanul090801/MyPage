@@ -1,0 +1,106 @@
+---
+import { PrismaClient } from "@prisma/client";
+import Layout from "../layouts/Layout.astro";
+const prisma = new PrismaClient();
+
+const initialScraps = await prisma.scrap.findMany({ orderBy: { createdAt: "desc" } });
+---
+
+<Layout>
+    <h1>스크랩 업로드</h1>
+
+    <section class="upload-section">
+        <input type="url" id="linkInput" placeholder="https://example.com" />
+        <button id="addBtn">추가하기</button>
+    </section>
+
+    <section class="scrap-list-section">
+        <h2>스크랩 리스트</h2>
+        <ul id="scrapList">
+            {initialScraps.map((s) => (
+                    <li>
+                        <a href={s.link} target="_blank" rel="noopener noreferrer">{s.link}</a>
+                        <time>{new Date(s.createdAt).toLocaleString("ko-KR")}</time>
+                    </li>
+            ))}
+        </ul>
+    </section>
+</Layout>
+
+<script type="module">
+    const addBtn = document.getElementById("addBtn");
+    const linkInput = document.getElementById("linkInput");
+    const scrapList = document.getElementById("scrapList");
+
+    addBtn.addEventListener("click", async () => {
+        const link = linkInput.value.trim();
+        if (!link) return alert("링크를 입력해주세요.");
+
+        const res = await fetch("/api/scraps", {
+            method: "POST",
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ link }),
+        });
+
+        if (!res.ok) {
+            const err = await res.json();
+            return alert(err.error || "오류 발생");
+        }
+
+        location.reload(true);
+
+        linkInput.value = "";
+    });
+</script>
+
+<style>
+    .upload-section { display: flex; gap: 0.5rem; margin-bottom: 2rem; }
+    .upload-section input {
+        flex: 1;
+        padding: 0.6rem;
+        font-size: 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+    }
+    .upload-section input:focus {
+        outline: none;
+        border-color: #4f46e5;
+        box-shadow: 0 0 0 2px rgba(79,70,229,0.2);
+    }
+    .upload-section button {
+        padding: 0.6rem 1rem;
+        font-weight: bold;
+        color: #fff;
+        background: linear-gradient(135deg, #6366f1, #4f46e5);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .upload-section button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(79,70,229,0.3);
+    }
+    .scrap-list-section ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .scrap-list-section li {
+        padding: 0.6rem;
+        background: #fff;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .scrap-list-section a {
+        color: #4f46e5;
+        text-decoration: none;
+    }
+    .scrap-list-section a:hover { text-decoration: underline; }
+    time { font-size: 0.8rem; color: #666; }
+</style>
